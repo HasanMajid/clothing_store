@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to our Online Store</h1>
+        <h2 id="name">Your name: </h2>
+    </header>
+
+    <main>
+        <section>
+            <h2>Featured Products</h2>
+            <!-- Display your featured products here -->
+        </section>
+
+        <section>
+            <h2>All Products</h2>
+            <!-- Display all products here -->
+        </section>
+    </main>
+
+</body>
+<script src="./helpers.js"></script>
+
+<script>
+    helperFetch("http://localhost:3000/getUser", (data) => {
+        console.log(data);
+        document.getElementById('name').innerHTML = "Your name: " + data.FIRSTNAME;
+    })
+
+</script>
+
+</html>
