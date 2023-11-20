@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Page</title>
+    <style>
+        body {
+            background-color: rgb(1, 1, 80);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(1, 1, 120);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Supplier information</h1>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Supplier name</th>
+                    <th>Location</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody id="SupplierDataBody">
+                <!-- supplier data will be inserted here dynamically -->
+            </tbody>
+        </table>
+    </main>
+
+    <script src="./helpers.js"></script>
+
+    <script>
+        // Function to fetch user data
+        function fetchSupplierData() {
+            // Replace the URL with your actual endpoint for fetching supplier data
+            helperFetch("http://localhost:3000/getsupplier", function (data) {
+                console.log(data);
+                populateTable(data);
+            });
+        }
+
+        // Function to populate the table with user data
+        function populateTable(data) {
+            var supplierDataBody = document.getElementById("supplierDataBody");
+
+            data.forEach(function (user) {
+                var row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${supplier.supplierName}</td>
+                    <td>${supplier.location}</td>
+                    <td>${supplier.email}</td>
+                    <td>${supplier.phoneNumber}</td>
+                `;
+                supplierDataBody.appendChild(row);
+            });
+        }
+
+        // Call the function to fetch user data when the page loads
+        fetchSupplierData();
+    </script>
+</body>
+
+</html>

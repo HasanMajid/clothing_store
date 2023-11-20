@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Store</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body{
+            background-color: rgb(1, 1, 80);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,16 +31,37 @@
             <h2>All Products</h2>
             <!-- Display all products here -->
         </section>
+
+        <button onclick="goToUsers()">Go to Users</button> 
+        <button onclick="goToProducts()">Go to Products</button> 
+        <button onclick="goToShoppingCart()">Go to Shopping Cart</button> 
+        <button onclick="goToSupplier()">Go to Supplier</button> 
     </main>
 
 </body>
 <script src="./helpers.js"></script>
 
 <script>
-    helperFetch("http://localhost:3000/getUser", (data) => {
-        console.log(data);
-        document.getElementById('name').innerHTML = "Your name: " + data.FIRSTNAME;
-    })
+    helperFetch("http://localhost:3000/getUsers", (users) => {
+        console.log(users);
+        document.getElementById('name').innerHTML = "Your name: " + users[0].FIRSTNAME;
+    });
+
+    function goToUsers(){
+        window.location.href = "user.html"
+    }
+    function goToProducts(){
+        window.location.href = "products.html"
+
+    }
+    function goToShoppingCart(){
+        window.location.href = "shoppingcart.html"
+
+    }
+    function goToSupplier(){
+        window.location.href = "supplier.html"
+
+    }
 
 </script>
 
