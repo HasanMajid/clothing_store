@@ -14,9 +14,14 @@ async function fetchName() {
   return name;
 }
 
-async function helperFetch(url, func) {
+async function helperFetch(
+  url,
+  func = (data) => {
+    console.log("altering/deleting");
+  }
+) {
   await fetch(url)
-    .then((res) => res.json())
+    .then((res) => res?.json())
     .then((data) => {
       func(data);
     })

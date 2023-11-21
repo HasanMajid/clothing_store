@@ -13,7 +13,7 @@
         }
 
         table {
-            width: 80%;
+            width: 60%;
             margin: 20px auto;
             border-collapse: collapse;
         }
@@ -28,6 +28,15 @@
         th {
             background-color: rgb(1, 1, 120);
         }
+
+        #table-buttons {
+            margin: auto;
+            width: fit-content;
+        }
+
+        button {
+            font-size: larger;
+        }
     </style>
 </head>
 
@@ -37,11 +46,11 @@
     </header>
 
     <main>
-        <div>
-            <button onclick="addUser()">Add User</button>
-            <button onclick="deleteUser()">Delete User</button>
-            <button onclick="changeUserInfo()">Change User Info</button>
-            <button onclick="backToHomePage()">Back to Home Page</button>
+        <div id="table-buttons">
+            <button onclick="populateTable()">Populate Table</button>
+            <button onclick="deleteData()">Delete Rows</button>
+            <button onclick="dropTables()">Drop Table</button>
+            <button onclick="createTables()">Create Table</button>
         </div>
 
         <table>
@@ -69,12 +78,14 @@
 
 
         // Function to populate the table with user data
-        function populateTable() {
+        function getTable() {
             helperFetch("http://localhost:3000/getUsers", (users) => {
-                var userDataBody = document.getElementById("userDataBody");
-
+                console.log(users);
+                let userDataBody = document.getElementById("userDataBody");
+                userDataBody.innerHTML = "";
+                // row.innerHTML = "";
                 users.forEach(function (user) {
-                    var row = document.createElement("tr");
+                    let row = document.createElement("tr");
                     row.innerHTML = `
                     <td>${user.USERID}</td>
                     <td>${user.USERTYPE}</td>
@@ -96,23 +107,27 @@
         ];
 
         // Call the function to populate the table with sample user data when the page loads
-        populateTable();
+        getTable();
 
 
-        function addUser() {
-            window.location.href = "user.html"
-        }
-        function deleteUser() {
-            window.location.href = "products.html"
+        async function populateTable() {
+            await helperFetch("http://localhost:3000/populateUsers");
+            await getTable();
 
         }
-        function changeUserInfo() {
-            window.location.href = "shoppingcart.html"
+        async function deleteData() {
+            await helperFetch("http://localhost:3000/deleteUsers");
+            await getTable();
+        }
+        async function dropTables() {
+            await helperFetch("http://localhost:3000/dropTables");
+            await getTable();
 
         }
 
-        function backToHomePage() {
-            window.location.href = "index.html"
+        async function createTables() {
+            await helperFetch("http://localhost:3000/createTables");
+            await getTable();
         }
 
 
