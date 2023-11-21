@@ -5,11 +5,19 @@ dotenv.config();
 
 const runQuery = require("./db.js");
 const userRoutes = require("./routes/user.js");
+const employeeRoutes = require("./routes/employee.js");
+const physicalStoreRoutes = require("./routes/physicalStore.js");
+const supplierRoutes = require("./routes/supplier.js");
+const customerRoutes = require("./routes/customer.js");
+const productRoutes = require("./routes/product.js");
+const adminEmployeeRoutes = require("./routes/adminEmployee.js");
+const brandRoutes = require("./routes/brand.js");
+const shoppingCartQuantityRoutes = require("./routes/shoppingCartQuantity.js");
+const shoppingCartCostRoutes = require("./routes/shoppingCartCost.js");
 
 const corsOption = {
   origin: [process.env.URL],
 };
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,8 +31,16 @@ app.use(cors());
 //   res.send(user[0]);
 // });
 
-app.use('/user', userRoutes);
-
+app.use("/user", userRoutes);
+app.use("/employee", employeeRoutes);
+app.use("/physicalStore", physicalStoreRoutes);
+app.use("/supplier", supplierRoutes);
+app.use("/customer", customerRoutes);
+app.use("/product", productRoutes);
+app.use("/adminEmployee", adminEmployeeRoutes);
+app.use("/brand", brandRoutes);
+app.use("/shoppingCartQuantity", shoppingCartQuantityRoutes);
+app.use("/shoppingCartCost", shoppingCartCostRoutes);
 
 app.get("/createTables", async (req, res) => {
   await runQuery(

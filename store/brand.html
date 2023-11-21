@@ -42,7 +42,7 @@
 
 <body>
     <header>
-        <h1>user Table</h1>
+        <h1>brand Table</h1>
     </header>
 
     <main>
@@ -56,13 +56,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>User Type</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Date of Birth</th>
+                    <th>brandName</th>
+                    <th>email</th>
+                    <th>phoneNumber</th>
                 </tr>
             </thead>
             <tbody id="dataBody">
@@ -76,7 +72,7 @@
     <script>
         // Function to get table data
         function getTable() {
-            helperFetch("http://localhost:3000/user/get", (users) => {
+            helperFetch("http://localhost:3000/brand/get", (users) => {
                 console.log(users);
                 let dataBody = document.getElementById("dataBody");
                 dataBody.innerHTML = "";
@@ -84,13 +80,9 @@
                 users.forEach(function (user) {
                     let row = document.createElement("tr");
                     row.innerHTML = `
-                    <td>${user.USERID}</td>
-                    <td>${user.USERTYPE}</td>
-                    <td>${user.FIRSTNAME}</td>
-                    <td>${user.LASTNAME}</td>
+                    <td>${user.BRANDNAME}</td>
                     <td>${user.EMAIL}</td>
                     <td>${user.PHONENUMBER}</td>
-                    <td>${user.DATEOFBIRTH}</td>
                 `;
                     dataBody.appendChild(row);
                 });
@@ -100,12 +92,12 @@
         getTable();
 
         async function populateTable() {
-            await helperFetch("http://localhost:3000/user/populate");
+            await helperFetch("http://localhost:3000/brand/populate");
             await getTable();
 
         }
         async function deleteData() {
-            await helperFetch("http://localhost:3000/user/delete");
+            await helperFetch("http://localhost:3000/brand/delete");
             await getTable();
         }
         async function dropTables() {

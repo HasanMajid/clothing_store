@@ -19,7 +19,7 @@ async function runQuery(query) {
     console.log(data.rows);
     return data.rows;
   } catch (err) {
-    console.log("errror");
+    console.log(err);
     // console.error(err);
     return [];
   } finally {
