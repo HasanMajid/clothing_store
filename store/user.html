@@ -65,7 +65,7 @@
                     <th>Date of Birth</th>
                 </tr>
             </thead>
-            <tbody id="userDataBody">
+            <tbody id="dataBody">
 
             </tbody>
         </table>
@@ -76,9 +76,9 @@
     <script>
         // Function to get table data
         function getTable() {
-            helperFetch("http://localhost:3000/user/getUsers", (users) => {
+            helperFetch("http://localhost:3000/user/get", (users) => {
                 console.log(users);
-                let userDataBody = document.getElementById("userDataBody");
+                let userDataBody = document.getElementById("dataBody");
                 userDataBody.innerHTML = "";
                 // row.innerHTML = "";
                 users.forEach(function (user) {
@@ -100,12 +100,12 @@
         getTable();
 
         async function populateTable() {
-            await helperFetch("http://localhost:3000/user/populateUsers");
+            await helperFetch("http://localhost:3000/user/populate");
             await getTable();
 
         }
         async function deleteData() {
-            await helperFetch("http://localhost:3000/user/deleteUsers");
+            await helperFetch("http://localhost:3000/user/delete");
             await getTable();
         }
         async function dropTables() {
