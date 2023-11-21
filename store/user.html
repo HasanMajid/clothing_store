@@ -76,7 +76,7 @@
     <script>
         // Function to get table data
         function getTable() {
-            helperFetch("http://localhost:3000/getUsers", (users) => {
+            helperFetch("http://localhost:3000/user/getUsers", (users) => {
                 console.log(users);
                 let userDataBody = document.getElementById("userDataBody");
                 userDataBody.innerHTML = "";
@@ -105,22 +105,22 @@
         getTable();
 
         async function populateTable() {
-            await helperFetch("http://localhost:3000/populateUsers");
+            await helperFetch("http://localhost:3000/user/populateUsers");
             await getTable();
 
         }
         async function deleteData() {
-            await helperFetch("http://localhost:3000/deleteUsers");
+            await helperFetch("http://localhost:3000/user/deleteUsers");
             await getTable();
         }
         async function dropTables() {
-            await helperFetch("http://localhost:3000/dropTables");
+            await helperFetch("http://localhost:3000/user/dropTables");
             await getTable();
 
         }
 
         async function createTables() {
-            await helperFetch("http://localhost:3000/createTables");
+            await helperFetch("http://localhost:3000/user/createTables");
             await getTable();
         }
 
