@@ -114,13 +114,13 @@
             await getTable();
         }
         async function dropTables() {
-            await helperFetch("http://localhost:3000/user/dropTables");
+            await helperFetch("http://localhost:3000/dropTables");
             await getTable();
 
         }
 
         async function createTables() {
-            await helperFetch("http://localhost:3000/user/createTables");
+            await helperFetch("http://localhost:3000/createTables");
             await getTable();
         }
 
