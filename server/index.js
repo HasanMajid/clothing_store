@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const runQuery = require("./db.js");
@@ -13,6 +14,7 @@ const productRoutes = require("./routes/product.js");
 const adminEmployeeRoutes = require("./routes/adminEmployee.js");
 const brandRoutes = require("./routes/brand.js");
 const shoppingCartRoutes = require("./routes/shoppingCart.js");
+const customQueryRoutes = require("./routes/customQuery.js");
 
 const corsOption = {
   origin: [process.env.URL],
@@ -39,6 +41,7 @@ app.use("/product", productRoutes);
 app.use("/adminEmployee", adminEmployeeRoutes);
 app.use("/brand", brandRoutes);
 app.use("/shoppingCart", shoppingCartRoutes);
+app.use("/customQuery", customQueryRoutes);
 
 app.get("/createTables", async (req, res) => {
   await runQuery(

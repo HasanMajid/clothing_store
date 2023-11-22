@@ -10,7 +10,7 @@ router.get("/get", async (req, res) => {
 router.get("/populate", async (req, res) => {
   console.log("populating table");
   await runQuery(
-    "INSERT ALL INTO product VALUES ('P1001', 29.99, 'Shoes', 50, 'Black', 'Small', 'product1.jpg', 'High-quality fabric product.', 'Electronics Product 1') INTO product VALUES ('P1002', 19.99, 'T-shirts', 100, 'Blue', 'Medium', 'product2.jpg', 'Comfortable medium-sized blue t-shirt.', 'Blue T-Shirt') INTO product VALUES ('P1003', 49.99, 'T-shirts', 30, 'Silver', 'Small', 'product3.jpg', 'Modern small-sized silver t-shirt.', 'Silver Gadget') INTO product VALUES ('P1004', 39.99, 'Pants', 75, 'Red', 'Large', 'product4.jpg', 'Stylish and vibrant red dress for special occasions.', 'Red Dress') SELECT 1 FROM DUAL"
+    "INSERT ALL INTO product VALUES ('Product1', 29.99, 'Shoes', 50, 'Black', 'Small', 'product1.jpg', 'High-quality fabric product.', 'Electronics Product 1') INTO product VALUES ('Product2', 19.99, 'T-shirts', 100, 'Blue', 'Medium', 'product2.jpg', 'Comfortable medium-sized blue t-shirt.', 'Blue T-Shirt') INTO product VALUES ('Product3', 49.99, 'T-shirts', 30, 'Silver', 'Small', 'product3.jpg', 'Modern small-sized silver t-shirt.', 'Silver Gadget') INTO product VALUES ('Product4', 39.99, 'Pants', 75, 'Red', 'Large', 'product4.jpg', 'Stylish and vibrant red dress for special occasions.', 'Red Dress') SELECT 1 FROM DUAL"
   );
   res.send([{ message: "populated table" }]);
 });

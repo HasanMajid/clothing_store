@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Page</title>
     <link rel="stylesheet" href="./styles.css">
+    <style>
+        button {
+            font-weight: bold;
+        }
+        textarea {
+            font-size: x-large;
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <h1>User Table</h1>
+        <h1>Custom Query</h1>
     </header>
+<div>
+    <!-- <h2>Please type in the query for the data you are looking for: (For example: SELECT * FROM product WHERE price > 15)</h2> -->
+
+</div>
 
     <div id="sidebar">
         <h2>Tables</h2>
@@ -31,53 +43,100 @@
 
     <main>
         <div id="table-buttons">
+            <textarea type="text" placeholder="Add Query" id="query-input"></textarea><br>
             <button onclick="runQuery()">Run Query</button>
         </div>
 
         <table>
             <thead>
-                <tr>
-                    <th></th>
+                <tr id="columns">
                 </tr>
             </thead>
             <tbody id="dataBody">
 
             </tbody>
         </table>
+        <div class="table-buttons">
+            <h2>Specific Commands</h2>
+            <button onclick="query1()">SELECT * FROM usr WHERE userType = 'employee'</button>
+            <button onclick="query2()">delete from usr where userID='usr1'</button>
+            <!-- <button onclick="query3()">INSERT INTO usr VALUES ('usr1', 'employee', 'John', 'David', 'john@example.com',
+                '123-456-7890', '03161970')</button> -->
+        </div>
     </main>
 
     <script src="./helpers.js"></script>
 
     <script>
-        // Function to get table data
-        function getTable() {
-            helperFetch("http://localhost:3000/runQuery/get", (users) => {
-                let dataBody = document.getElementById("dataBody");
-                dataBody.innerHTML = "";
-                // row.innerHTML = "";
-                users.forEach(function (user) {
+        function displayTable(records) {
+            const dataBody = document.getElementById("dataBody");
+            dataBody.innerHTML = "";
+            document.getElementById("columns").innerHTML = ""
+            var columnNames = [];
+            if (!!records[0]) {
+                const columnNames = Object.keys(records[0]);
+                console.log(columnNames)
+                columnNames.forEach(function (column) {
+                    let th = document.createElement("th");
+                    th.innerHTML = column;
+                    document.getElementById("columns").appendChild(th);
+                })
+
+                records.forEach(function (record) {
                     let row = document.createElement("tr");
-                    row.innerHTML = `
-                    <td>${user.USERID}</td>
-                    <td>${user.USERTYPE}</td>
-                    <td>${user.FIRSTNAME}</td>
-                    <td>${user.LASTNAME}</td>
-                    <td>${user.EMAIL}</td>
-                    <td>${user.PHONENUMBER}</td>
-                    <td>${user.DATEOFBIRTH}</td>
-                `;
+                    let rowString = ""
+                    const values = Object.values(record);
+                    values.forEach(function (value) {
+                        rowString = rowString + `<td>${value}</td>`;
+                    })
+                    row.innerHTML = rowString;
                     dataBody.appendChild(row);
-                });
-            });
+                    rowString = "";
+                })
+            }
         }
 
-        getTable();
 
         async function runQuery() {
-            await helperFetch("http://localhost:3000/user/populate");
-            await getTable();
+            const query = document.getElementById("query-input").value;
+            // const query = "select * from usr";
+            await fetch(`http://localhost:3000/customQuery/get?q=${query}`)
+                .then(async (res) => displayTable(await res.json()))
+                .catch((err) => {
+                    console.log("got fetch error with " + `http://localhost:3000/runQuery?q=${query}`);
+                    console.log(err);
+                });
         }
 
+        async function query1() {
+            const query = "SELECT * FROM usr WHERE userType = 'employee'";
+            await fetch(`http://localhost:3000/customQuery/get?q=${query}`)
+                .then(async (res) => displayTable(await res.json()))
+                .catch((err) => {
+                    console.log("got fetch error with " + `http://localhost:3000/runQuery?q=${query}`);
+                    console.log(err);
+                });
+        }
+
+        async function query2() {
+            const query = "delete from usr where userID='usr1'";
+            await fetch(`http://localhost:3000/customQuery/get?q=${query}`)
+                .then(async (res) => displayTable(await res.json()))
+                .catch((err) => {
+                    console.log("got fetch error with " + `http://localhost:3000/runQuery?q=${query}`);
+                    console.log(err);
+                });
+        }
+
+        async function query3() {
+            const query = "INSERT INTO usr VALUES ('usr1', 'employee', 'John', 'David', 'john@example.com', '123-456-7890', '03161970')";
+            await fetch(`http://localhost:3000/customQuery/get?q=${query}`)
+                .then(async (res) => displayTable(await res.json()))
+                .catch((err) => {
+                    console.log("got fetch error with " + `http://localhost:3000/runQuery?q=${query}`);
+                    console.log(err);
+                });
+        }
 
     </script>
 </body>

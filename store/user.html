@@ -17,6 +17,7 @@
         <h2>Tables</h2>
         <ul>
             <li><a href="index.html">Return to Front Page</a></li>
+            <li><a href="customQUery.html">Go to Custom Query</a></li>
             <li><a href="user.html">User</a></li>
             <li><a href="supplier.html">Supplier</a></li>
             <li><a href="employee.html">Employee</a></li>
@@ -35,14 +36,7 @@
             <button onclick="deleteData()">Delete Rows</button>
             <button onclick="dropTables()">Drop All Tables</button>
             <button onclick="createTables()">Create All Tables</button>
-            
-            <div id="searchbar">
-                <form action="/search" method="GET" onsubmit="searchTable(event)">
-                    <label for="search">Search:</label>
-                    <input type="text" id="search" name="q" placeholder="Enter your search term">
-                    <button type="submit">Search</button>
-        </form>
-    </div>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -59,6 +53,8 @@
 
             </tbody>
         </table>
+    </div>
+
     </main>
 
     <script src="./helpers.js"></script>
@@ -108,38 +104,6 @@
             await helperFetch("http://localhost:3000/createTables");
             await getTable();
         }
-        async function searchTable(event) {
-        event.preventDefault(); // Prevent form submission and page reload
-
-        const searchTerm = document.getElementById("search").value.toLowerCase();
-        const allUsers = await helperFetch("http://localhost:3000/user/get"); // Fetch all users
-
-        const filteredUsers = allUsers.filter(user => {
-            // You can customize the search logic based on your requirements
-            return (
-                user.FIRSTNAME.toLowerCase().includes(searchTerm) ||
-                user.LASTNAME.toLowerCase().includes(searchTerm) ||
-                user.EMAIL.toLowerCase().includes(searchTerm)
-            );
-        });
-
-        let dataBody = document.getElementById("dataBody");
-        dataBody.innerHTML = "";
-
-        filteredUsers.forEach(function (user) {
-            let row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${user.USERID}</td>
-                <td>${user.USERTYPE}</td>
-                <td>${user.FIRSTNAME}</td>
-                <td>${user.LASTNAME}</td>
-                <td>${user.EMAIL}</td>
-                <td>${user.PHONENUMBER}</td>
-                <td>${user.DATEOFBIRTH}</td>
-            `;
-            dataBody.appendChild(row);
-        });
-    }
 
     </script>
 </body>

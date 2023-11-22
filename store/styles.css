@@ -26,6 +26,13 @@ th {
     width: fit-content;
 }
 
+.table-buttons {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
 button {
     font-size: larger;
     cursor: pointer;
@@ -51,7 +58,8 @@ a:hover {
     width: 15%;
     height: 100%;
     border: 2px solid white;
-    padding: 20px;
+    padding-left: 20px;
+    overflow-y: scroll;
 }
 
 h2 {
@@ -60,13 +68,6 @@ h2 {
 
 h1 {
     text-align: center;
-}
-#sidebar2 {
-    position: fixed;
-    width: 15%;
-    height: 100%;
-    border: 2px solid white;
-    padding: 20px;
 }
 
 h2 {

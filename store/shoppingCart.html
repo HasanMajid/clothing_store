@@ -17,6 +17,7 @@
         <ul>
             <li><a href="index.html">Return to Front Page</a></li>
             <li><a href="user.html">User</a></li>
+            <li><a href="customQUery.html">Go to Custom Query</a></li>
             <li><a href="supplier.html">Supplier</a></li>
             <li><a href="employee.html">Employee</a></li>
             <li><a href="customer.html">Customer</a></li>
@@ -56,7 +57,7 @@
     <script>
         // Function to get table data
         function getTable() {
-            helperFetch("http://localhost:3000/shoppingCartCost/get", (users) => {
+            helperFetch("http://localhost:3000/shoppingCart/get", (users) => {
                 console.log(users);
                 let dataBody = document.getElementById("dataBody");
                 dataBody.innerHTML = "";
@@ -64,9 +65,9 @@
                 users.forEach(function (user) {
                     let row = document.createElement("tr");
                     row.innerHTML = `
-                    <td>${user.customerID}</td>
-                    <td>${user.productID}</td>
-                    <td>${user.quantity}</td>
+                    <td>${user.CUSTOMERID}</td>
+                    <td>${user.PRODUCTID}</td>
+                    <td>${user.QUANTITY}</td>
                 `;
                     dataBody.appendChild(row);
                 });
