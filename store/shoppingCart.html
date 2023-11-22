@@ -4,46 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Page</title>
-    <style>
-        body {
-            background-color: rgb(1, 1, 80);
-            color: white;
-            font-family: 'Arial', sans-serif;
-        }
-
-        table {
-            width: 60%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid white;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: rgb(1, 1, 120);
-        }
-
-        #table-buttons {
-            margin: auto;
-            width: fit-content;
-        }
-
-        button {
-            font-size: larger;
-        }
-    </style>
+    <title>Shopping Cart Page</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <header>
-        <h1>shoppingCartQuantity Table</h1>
+        <h1>Shopping Cart Table</h1>
     </header>
+    <div id="sidebar">
+        <h2>Tables</h2>
+        <ul>
+            <li><a href="index.html">Return to Front Page</a></li>
+            <li><a href="user.html">User</a></li>
+            <li><a href="supplier.html">Supplier</a></li>
+            <li><a href="employee.html">Employee</a></li>
+            <li><a href="customer.html">Customer</a></li>
+            <li><a href="adminEmployee.html">Admin Employee</a></li>
+            <li><a href="brand.html">Brand</a></li>
+            <li><a href="physicalStore.html">Physical Store</a></li>
+            <li><a href="products.html">Product</a></li>
+            <li><a href="shoppingCart.html">Shopping Cart</a></li>
+        </ul>
+    </div>
 
     <main>
         <div id="table-buttons">
@@ -59,6 +42,7 @@
                     <th>customerID</th>
                     <th>productID</th>
                     <th>quantity</th>
+
                 </tr>
             </thead>
             <tbody id="dataBody">
@@ -72,7 +56,7 @@
     <script>
         // Function to get table data
         function getTable() {
-            helperFetch("http://localhost:3000/shoppingCartQuantity/get", (users) => {
+            helperFetch("http://localhost:3000/shoppingCartCost/get", (users) => {
                 console.log(users);
                 let dataBody = document.getElementById("dataBody");
                 dataBody.innerHTML = "";
@@ -80,9 +64,9 @@
                 users.forEach(function (user) {
                     let row = document.createElement("tr");
                     row.innerHTML = `
-                    <td>${user.BRANDNAME}</td>
-                    <td>${user.EMAIL}</td>
-                    <td>${user.PHONENUMBER}</td>
+                    <td>${user.customerID}</td>
+                    <td>${user.productID}</td>
+                    <td>${user.quantity}</td>
                 `;
                     dataBody.appendChild(row);
                 });
@@ -92,12 +76,12 @@
         getTable();
 
         async function populateTable() {
-            await helperFetch("http://localhost:3000/shoppingCartQuantity/populate");
+            await helperFetch("http://localhost:3000/shoppingCart/populate");
             await getTable();
 
         }
         async function deleteData() {
-            await helperFetch("http://localhost:3000/shoppingCartQuantity/delete");
+            await helperFetch("http://localhost:3000/shoppingCart/delete");
             await getTable();
         }
         async function dropTables() {

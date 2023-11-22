@@ -3,7 +3,7 @@ const runQuery = require("../db");
 const router = express.Router();
 
 router.get("/get", async (req, res) => {
-  const users = await runQuery("SELECT * FROM shoppingCartQuantity");
+  const users = await runQuery("SELECT * FROM shoppingCart");
   res.send(users);
 });
 
@@ -14,7 +14,7 @@ router.get("/populate", async (req, res) => {
 });
 
 router.get("/delete", async (req, res) => {
-  await runQuery("DELETE FROM shoppingCartQuantity");
+  await runQuery("DELETE FROM shoppingCart");
   res.send([{ message: "deleted data" }]);
 });
 

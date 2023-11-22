@@ -4,65 +4,44 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Store</title>
+    <title>Online Store Database</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body{
-            background-color: rgb(1, 1, 80);
-            color: white;
-            font-family: 'Arial', sans-serif;
-        }
-    </style>
 </head>
 
-<body>
+<body>  
     <header>
-        <h1>Welcome to our Online Store</h1>
-        <h2 id="name">Your name: </h2>
+        <h1>Welcome to our Online Clothing Store Database Manager</h1>
+        <h1>Please click one of the following options from tables and queries</h1>
+
     </header>
-
-    <main>
-        <section>
-            <h2>Featured Products</h2>
-            <!-- Display your featured products here -->
-        </section>
-
-        <section>
-            <h2>All Products</h2>
-            <!-- Display all products here -->
-        </section>
-
-        <button onclick="goToUsers()">Go to Users</button> 
-        <button onclick="goToProducts()">Go to Products</button> 
-        <button onclick="goToShoppingCart()">Go to Shopping Cart</button> 
-        <button onclick="goToSupplier()">Go to Supplier</button> 
-    </main>
+    <div id="sidebar">
+        <h2>Tables</h2>
+        <ul>
+            <li><a href="user.html">User</a></li>
+            <li><a href="supplier.html">Supplier</a></li>
+            <li><a href="employee.html">Employee</a></li>
+            <li><a href="customer.html">Customer</a></li>
+            <li><a href="adminEmployee.html">AdminEmployee</a></li>
+            <li><a href="brand.html">Brand</a></li>
+            <li><a href="physicalStore.html">PhysicalStore</a></li>
+            <li><a href="product.html">Product</a></li>
+            <li><a href="shoppingCart.html">Shopping Cart</a></li>
+        </ul>
+    </div>
+    <div id="sidebar2">
+        <h2>Queries</h2>
+        <ul>
+            <li><a href="user.html">Query 1</a></li>
+            <li><a href="supplier.html">Query 1</a></li>
+            <li><a href="employee.html">Query 1</a></li>
+            <li><a href="customer.html">Query 1</a></li>
+            <li><a href="adminEmployee.html">Query 1</a></li>
+            <li><a href="brand.html">Query 1</a></li>
+            <li><a href="physicalStore.html">Query 1</a></li>
+            <li><a href="product.html">Query 1</a></li>
+            <li><a href="shoppingCart.html">Query 1</a></li>
+        </ul>
+    </div>
 
 </body>
-<script src="./helpers.js"></script>
-
-<script>
-    helperFetch("http://localhost:3000/getUsers", (users) => {
-        console.log(users);
-        document.getElementById('name').innerHTML = "Your name: " + users[0].FIRSTNAME;
-    });
-
-    function goToUsers(){
-        window.location.href = "user.html"
-    }
-    function goToProducts(){
-        window.location.href = "products.html"
-
-    }
-    function goToShoppingCart(){
-        window.location.href = "shoppingcart.html"
-
-    }
-    function goToSupplier(){
-        window.location.href = "supplier.html"
-
-    }
-
-</script>
-
 </html>

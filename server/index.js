@@ -12,8 +12,7 @@ const customerRoutes = require("./routes/customer.js");
 const productRoutes = require("./routes/product.js");
 const adminEmployeeRoutes = require("./routes/adminEmployee.js");
 const brandRoutes = require("./routes/brand.js");
-const shoppingCartQuantityRoutes = require("./routes/shoppingCartQuantity.js");
-const shoppingCartCostRoutes = require("./routes/shoppingCartCost.js");
+const shoppingCartRoutes = require("./routes/shoppingCart.js");
 
 const corsOption = {
   origin: [process.env.URL],
@@ -39,8 +38,7 @@ app.use("/customer", customerRoutes);
 app.use("/product", productRoutes);
 app.use("/adminEmployee", adminEmployeeRoutes);
 app.use("/brand", brandRoutes);
-app.use("/shoppingCartQuantity", shoppingCartQuantityRoutes);
-app.use("/shoppingCartCost", shoppingCartCostRoutes);
+app.use("/shoppingCart", shoppingCartRoutes);
 
 app.get("/createTables", async (req, res) => {
   await runQuery(
@@ -65,10 +63,7 @@ app.get("/createTables", async (req, res) => {
     "CREATE TABLE product(prodId VARCHAR(25) PRIMARY KEY, price NUMBER, cat VARCHAR2(15), stock NUMBER, color VARCHAR2(10), clotheSize VARCHAR2(8), images VARCHAR2(26), descrip VARCHAR2(500), productName VARCHAR2(25))"
   );
   await runQuery(
-    "CREATE TABLE shoppingCartQuantity(customerID VARCHAR2(20) REFERENCES customer(custID) ON DELETE CASCADE, productID VARCHAR2(25) REFERENCES product(prodId) ON DELETE CASCADE, quantity NUMBER, PRIMARY KEY(customerID, productID))"
-  );
-  await runQuery(
-    "CREATE TABLE shoppingCartCost(customerID VARCHAR2(20), productID VARCHAR2(25), quantity NUMBER, subtotal NUMBER, total NUMBER, PRIMARY KEY(customerID, productID), FOREIGN KEY (customerID, productID) REFERENCES shoppingCartQuantity(customerID, productID) ON DELETE CASCADE)"
+    "CREATE TABLE shoppingCart(customerID VARCHAR2(20), productID VARCHAR2(25), quantity NUMBER, PRIMARY KEY(customerID, productID), FOREIGN KEY (customerID) REFERENCES customer(custID) ON DELETE CASCADE, FOREIGN KEY (productID) REFERENCES product(prodID) ON DELETE CASCADE)"
   );
   await runQuery(
     "CREATE TABLE supplier(supName VARCHAR2(20) PRIMARY KEY, loc VARCHAR2(100), email VARCHAR2(320), phoneNumber VARCHAR2(12))"
@@ -78,13 +73,13 @@ app.get("/createTables", async (req, res) => {
 
 app.get("/dropTables", async (req, res) => {
   await runQuery("drop table employee");
-  await runQuery("drop table shoppingCartCost");
-  await runQuery("drop table shoppingCartQuantity");
+  await runQuery("drop table shoppingCart");
   await runQuery("drop table adminEmployee");
   await runQuery("drop table customer");
   await runQuery("drop table usr");
   await runQuery("drop table brand");
   await runQuery("drop table product");
+  await runQuery("drop table physicalStore");
   await runQuery("drop table supplier");
   res.send([{ message: "deleted tables" }]);
 });

@@ -5,45 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Page</title>
-    <style>
-        body {
-            background-color: rgb(1, 1, 80);
-            color: white;
-            font-family: 'Arial', sans-serif;
-        }
-
-        table {
-            width: 60%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid white;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: rgb(1, 1, 120);
-        }
-
-        #table-buttons {
-            margin: auto;
-            width: fit-content;
-        }
-
-        button {
-            font-size: larger;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
     <header>
-        <h1>user Table</h1>
+        <h1>User Table</h1>
     </header>
+
+    <div id="sidebar">
+        <h2>Tables</h2>
+        <ul>
+            <li><a href="index.html">Return to Front Page</a></li>
+            <li><a href="user.html">User</a></li>
+            <li><a href="supplier.html">Supplier</a></li>
+            <li><a href="employee.html">Employee</a></li>
+            <li><a href="customer.html">Customer</a></li>
+            <li><a href="adminEmployee.html">Admin Employee</a></li>
+            <li><a href="brand.html">Brand</a></li>
+            <li><a href="physicalStore.html">Physical Store</a></li>
+            <li><a href="products.html">Product</a></li>
+            <li><a href="shoppingCart.html">Shopping Cart</a></li>
+        </ul>
+    </div>
 
     <main>
         <div id="table-buttons">
@@ -51,8 +35,14 @@
             <button onclick="deleteData()">Delete Rows</button>
             <button onclick="dropTables()">Drop All Tables</button>
             <button onclick="createTables()">Create All Tables</button>
-        </div>
-
+            
+            <div id="searchbar">
+                <form action="/search" method="GET" onsubmit="searchTable(event)">
+                    <label for="search">Search:</label>
+                    <input type="text" id="search" name="q" placeholder="Enter your search term">
+                    <button type="submit">Search</button>
+        </form>
+    </div>
         <table>
             <thead>
                 <tr>
@@ -118,7 +108,38 @@
             await helperFetch("http://localhost:3000/createTables");
             await getTable();
         }
+        async function searchTable(event) {
+        event.preventDefault(); // Prevent form submission and page reload
 
+        const searchTerm = document.getElementById("search").value.toLowerCase();
+        const allUsers = await helperFetch("http://localhost:3000/user/get"); // Fetch all users
+
+        const filteredUsers = allUsers.filter(user => {
+            // You can customize the search logic based on your requirements
+            return (
+                user.FIRSTNAME.toLowerCase().includes(searchTerm) ||
+                user.LASTNAME.toLowerCase().includes(searchTerm) ||
+                user.EMAIL.toLowerCase().includes(searchTerm)
+            );
+        });
+
+        let dataBody = document.getElementById("dataBody");
+        dataBody.innerHTML = "";
+
+        filteredUsers.forEach(function (user) {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${user.USERID}</td>
+                <td>${user.USERTYPE}</td>
+                <td>${user.FIRSTNAME}</td>
+                <td>${user.LASTNAME}</td>
+                <td>${user.EMAIL}</td>
+                <td>${user.PHONENUMBER}</td>
+                <td>${user.DATEOFBIRTH}</td>
+            `;
+            dataBody.appendChild(row);
+        });
+    }
 
     </script>
 </body>
