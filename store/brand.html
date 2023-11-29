@@ -74,22 +74,24 @@
         }
 
         getTable();
-
+        // Function to fetch data
         async function populateTable() {
             await helperFetch("http://localhost:3000/brand/populate");
             await getTable();
 
         }
+        // Function to delete table data
         async function deleteData() {
             await helperFetch("http://localhost:3000/brand/delete");
             await getTable();
         }
+        // Function to drop tables
         async function dropTables() {
             await helperFetch("http://localhost:3000/dropTables");
             await getTable();
 
         }
-
+        // Function to new tables
         async function createTables() {
             await helperFetch("http://localhost:3000/createTables");
             await getTable();
