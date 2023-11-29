@@ -9,7 +9,9 @@ router.get("/get", async (req, res) => {
 
 router.get("/populate", async (req, res) => {
   console.log("populating table");
-  await runQuery("INSERT ALL INTO shoppingCart VALUES ('usr3', 'Product1', 2) INTO shoppingCart VALUES ('usr3', 'Product2', 1) INTO shoppingCart VALUES ('usr3', 'Product3', 3) INTO shoppingCart VALUES ('usr4', 'Product1', 1) INTO shoppingCart VALUES ('usr4', 'Product4', 2) SELECT 1 FROM DUAL");
+  await runQuery(
+    "INSERT ALL INTO shoppingCart VALUES ('usr3', 'Product1', 2) INTO shoppingCart VALUES ('usr3', 'Product2', 1) INTO shoppingCart VALUES ('usr3', 'Product3', 3) INTO shoppingCart VALUES ('usr4', 'Product1', 1) INTO shoppingCart VALUES ('usr4', 'Product4', 2) SELECT 1 FROM DUAL"
+  );
   res.send([{ message: "populated table" }]);
 });
 
